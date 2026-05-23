@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "emergency_teleport",
   "version": "${version}",
-  "name": "emergency_teleport",
+  "name": "Emergency Teleport",
   "description": "",
   "authors": [],
   "contact": {},
