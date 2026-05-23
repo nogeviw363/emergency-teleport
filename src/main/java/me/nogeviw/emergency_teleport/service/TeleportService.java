@@ -14,7 +14,7 @@ public class TeleportService {
     private static final Map<UUID, Long> COOLDOWN =
             new HashMap<>();
 
-    private static final long COOLDOWN_MS = 1000;
+    private static final long COOLDOWN_MS = 30_000;
 
     public static void executeEmergencyTeleport(
             ServerPlayerEntity player
@@ -51,6 +51,10 @@ public class TeleportService {
 
         long now =
                 System.currentTimeMillis();
+
+        COOLDOWN.entrySet().removeIf(
+                e -> now - e.getValue() >= COOLDOWN_MS
+        );
 
         Long lastUse =
                 COOLDOWN.get(
