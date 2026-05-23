@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Gradle
+.gradle/
+build/
+
+# IntelliJ IDEA
+.idea/
+out/
+*.iml
+.idea_modules/
+
+# Crash logs
+hs_err_pid*
+
+# Fabric dev environment
+run/
+
+# Logs
+logs/
+*.log

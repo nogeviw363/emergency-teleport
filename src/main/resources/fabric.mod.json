@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "emergency_teleport",
+  "version": "${version}",
+  "name": "emergency_teleport",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/emergency_teleport/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "me.nogeviw.emergency_teleport.client.Emergency_teleportDataGenerator"
+    ],
+    "client": [
+      "me.nogeviw.emergency_teleport.client.EmergencyTeleportClient"
+    ],
+    "main": [
+      "me.nogeviw.emergency_teleport.EmergencyTeleport"
+    ]
+  },
+  "mixins": [
+    "emergency_teleport.mixins.json",
+    {
+      "config": "emergency_teleport.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

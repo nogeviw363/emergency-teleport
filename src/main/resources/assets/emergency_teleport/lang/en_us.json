@@ -1,0 +1,6 @@
+{
+  "screen.emergency_teleport.title": "Emergency Teleport",
+  "screen.emergency_teleport.warning": "Warning: 1x Ender Pearl will be consumed.",
+  "screen.emergency_teleport.confirm": "Yes",
+  "screen.emergency_teleport.cancel": "No"
+}
