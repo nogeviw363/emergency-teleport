@@ -12,86 +12,41 @@ import java.util.UUID;
 
 public class TeleportService {
 
-    private static final Map<UUID, Long> COOLDOWN =
-            new HashMap<>();
-
+    private static final Map<UUID, Long> COOLDOWN = new HashMap<>();
     private static final long COOLDOWN_MS = 30_000;
 
-    public static void executeEmergencyTeleport(
-            ServerPlayerEntity player
-    ) {
+    public static void executeEmergencyTeleport(ServerPlayerEntity player) {
+        if (isOnCooldown(player)) return;
 
-        if (isOnCooldown(player)) {
-            return;
-        }
+        ItemStack pearlStack = getPearlStack(player);
+        if (pearlStack.isEmpty()) return;
 
-        ItemStack pearlStack =
-                getPearlStack(player);
+        // Uses vanilla respawn logic to guarantee safe positioning
+        TeleportTarget respawnTarget = player.getRespawnTarget(true, TeleportTarget.NO_OP);
 
-        if (pearlStack.isEmpty()) {
-            return;
-        }
-
-        // Vanilla respawn logic
-        TeleportTarget respawnTarget =
-                player.getRespawnTarget(
-                        true,
-                        TeleportTarget.NO_OP
-                );
-
-        // Consome pérola
         pearlStack.decrement(1);
-
-        // Teleporta
         player.teleportTo(respawnTarget);
     }
 
-    private static boolean isOnCooldown(
-            ServerPlayerEntity player
-    ) {
+    private static boolean isOnCooldown(ServerPlayerEntity player) {
+        long now = System.currentTimeMillis();
 
-        long now =
-                System.currentTimeMillis();
+        COOLDOWN.entrySet().removeIf(e -> now - e.getValue() >= COOLDOWN_MS);
 
-        COOLDOWN.entrySet().removeIf(
-                e -> now - e.getValue() >= COOLDOWN_MS
-        );
-
-        Long lastUse =
-                COOLDOWN.get(
-                        player.getUuid()
-                );
-
-        if (lastUse != null
-                && now - lastUse
-                < COOLDOWN_MS) {
+        Long lastUse = COOLDOWN.get(player.getUuid());
+        if (lastUse != null && now - lastUse < COOLDOWN_MS) {
             long remaining = (COOLDOWN_MS - (now - lastUse)) / 1000;
             player.sendMessage(Text.translatable("message.emergency_teleport.cooldown", remaining), true);
             return true;
         }
 
-        COOLDOWN.put(
-                player.getUuid(),
-                now
-        );
-
+        COOLDOWN.put(player.getUuid(), now);
         return false;
     }
 
-    private static ItemStack getPearlStack(
-            ServerPlayerEntity player
-    ) {
-
-        if (player.getMainHandStack()
-                .isOf(Items.ENDER_PEARL)) {
-            return player.getMainHandStack();
-        }
-
-        if (player.getOffHandStack()
-                .isOf(Items.ENDER_PEARL)) {
-            return player.getOffHandStack();
-        }
-
+    private static ItemStack getPearlStack(ServerPlayerEntity player) {
+        if (player.getMainHandStack().isOf(Items.ENDER_PEARL)) return player.getMainHandStack();
+        if (player.getOffHandStack().isOf(Items.ENDER_PEARL)) return player.getOffHandStack();
         return ItemStack.EMPTY;
     }
 }

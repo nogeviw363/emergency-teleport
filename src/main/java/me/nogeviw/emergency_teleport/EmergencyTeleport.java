@@ -10,7 +10,7 @@ public class EmergencyTeleport implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Emergency Teleport mod instalado com sucesso. Registrando canais de rede...");
+        LOGGER.info("Emergency Teleport mod loaded. Registering network channels...");
         NetworkChannels.registerChannels();
     }
 }

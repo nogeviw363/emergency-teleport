@@ -6,15 +6,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
 public class TeleportRequestPacketHandler {
 
-    public static void handleTeleportRequest(
-            TeleportRequestPacket payload,
-            ServerPlayNetworking.Context context
-    ) {
-
-        context.server().execute(() ->
-                TeleportService.executeEmergencyTeleport(
-                        context.player()
-                )
-        );
+    public static void handleTeleportRequest(TeleportRequestPacket payload, ServerPlayNetworking.Context context) {
+        context.server().execute(() -> TeleportService.executeEmergencyTeleport(context.player()));
     }
 }
