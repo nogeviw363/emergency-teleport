@@ -12,21 +12,13 @@ public class ClientEnderPearlListener {
 
     public static void register() {
         UseItemCallback.EVENT.register((player, world, hand) -> {
-
-            if (!world.isClient()) {
-                return TypedActionResult.pass(ItemStack.EMPTY);
-            }
+            if (!world.isClient()) return TypedActionResult.pass(ItemStack.EMPTY);
 
             ItemStack stack = player.getStackInHand(hand);
-
-            if (!stack.isOf(Items.ENDER_PEARL)) {
-                return TypedActionResult.pass(stack);
-            }
+            if (!stack.isOf(Items.ENDER_PEARL)) return TypedActionResult.pass(stack);
 
             if (Screen.hasAltDown()) {
-                MinecraftClient client = MinecraftClient.getInstance();
-                client.setScreen(new ConfirmationScreen());
-
+                MinecraftClient.getInstance().setScreen(new ConfirmationScreen());
                 return TypedActionResult.fail(stack);
             }
 

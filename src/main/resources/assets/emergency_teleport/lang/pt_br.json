@@ -2,5 +2,7 @@
   "screen.emergency_teleport.title": "Teletransporte de Emergência",
   "screen.emergency_teleport.warning": "Aviso: 1x Ender Pearl será consumida.",
   "screen.emergency_teleport.confirm": "Sim",
-  "screen.emergency_teleport.cancel": "Não"
+  "screen.emergency_teleport.cancel": "Não",
+
+  "message.emergency_teleport.cooldown": "[!] Aguarde %ss para usar novamente."
 }
