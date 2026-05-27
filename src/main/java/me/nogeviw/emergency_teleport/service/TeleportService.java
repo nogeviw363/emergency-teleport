@@ -3,6 +3,7 @@ package me.nogeviw.emergency_teleport.service;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.world.TeleportTarget;
 
 import java.util.HashMap;
@@ -64,6 +65,8 @@ public class TeleportService {
         if (lastUse != null
                 && now - lastUse
                 < COOLDOWN_MS) {
+            long remaining = (COOLDOWN_MS - (now - lastUse)) / 1000;
+            player.sendMessage(Text.translatable("message.emergency_teleport.cooldown", remaining), true);
             return true;
         }
 
