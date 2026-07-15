@@ -3,16 +3,15 @@
   "id": "emergency_teleport",
   "version": "${version}",
   "name": "Emergency Teleport",
-  "description": "",
-  "authors": [],
-  "contact": {},
+  "description": "Hold ALT + Right Click with an Ender Pearl to safely teleport back to your spawn point.",
+  "authors": ["nogeviw"],
+  "contact": {
+    "sources": "https://modrinth.com/mod/emergency-teleport"
+  },
   "license": "MIT",
   "icon": "assets/emergency_teleport/icon.png",
   "environment": "*",
   "entrypoints": {
-    "fabric-datagen": [
-      "me.nogeviw.emergency_teleport.client.Emergency_teleportDataGenerator"
-    ],
     "client": [
       "me.nogeviw.emergency_teleport.client.EmergencyTeleportClient"
     ],
@@ -29,7 +28,7 @@
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "fabric-api": "*",
+    "fabric-api": ">=0.116.12+1.21.1",
     "minecraft": "${minecraft_version}"
   }
 }
