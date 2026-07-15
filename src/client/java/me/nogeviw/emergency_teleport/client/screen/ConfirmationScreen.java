@@ -1,6 +1,5 @@
 package me.nogeviw.emergency_teleport.client.screen;
 
-import me.nogeviw.emergency_teleport.EmergencyTeleport;
 import me.nogeviw.emergency_teleport.network.packet.TeleportRequestPacket;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
@@ -10,7 +9,7 @@ import net.minecraft.text.Text;
 
 public class ConfirmationScreen extends Screen {
 
-    private static final Text WARNING_TEXT = Text.translatable("screen.emergency_teleport.warning");
+    private Text warningText;
 
     public ConfirmationScreen() {
         super(Text.translatable("screen.emergency_teleport.title"));
@@ -18,13 +17,14 @@ public class ConfirmationScreen extends Screen {
 
     @Override
     protected void init() {
+        warningText = Text.translatable("screen.emergency_teleport.warning");
+
         int centerX = this.width / 2;
         int centerY = this.height / 2;
 
         this.addDrawableChild(ButtonWidget.builder(
                 Text.translatable("screen.emergency_teleport.confirm"),
                 button -> {
-                    EmergencyTeleport.LOGGER.info("Teleport confirmation accepted. Sending teleport packet...");
                     ClientPlayNetworking.send(new TeleportRequestPacket());
                     this.close();
                 }
@@ -45,7 +45,7 @@ public class ConfirmationScreen extends Screen {
         int centerY = this.height / 2;
 
         context.drawCenteredTextWithShadow(this.textRenderer, this.title, centerX, centerY - 35, 0xFFFFFF);
-        context.drawCenteredTextWithShadow(this.textRenderer, WARNING_TEXT, centerX, centerY - 15, 0xFF5555);
+        context.drawCenteredTextWithShadow(this.textRenderer, warningText, centerX, centerY - 15, 0xFF5555);
     }
 
     @Override

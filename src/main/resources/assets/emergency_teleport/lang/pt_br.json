@@ -4,5 +4,6 @@
   "screen.emergency_teleport.confirm": "Sim",
   "screen.emergency_teleport.cancel": "Não",
 
-  "message.emergency_teleport.cooldown": "[!] Aguarde %ss para usar novamente."
+  "message.emergency_teleport.cooldown": "[!] Aguarde %ss para usar novamente.",
+  "message.emergency_teleport.success": "Teletransporte de emergência ativado!"
 }

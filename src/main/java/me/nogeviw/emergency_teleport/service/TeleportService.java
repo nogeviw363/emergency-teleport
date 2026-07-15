@@ -6,13 +6,13 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.world.TeleportTarget;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class TeleportService {
 
-    private static final Map<UUID, Long> COOLDOWN = new HashMap<>();
+    private static final Map<UUID, Long> COOLDOWN = new ConcurrentHashMap<>();
     private static final long COOLDOWN_MS = 30_000;
 
     public static void executeEmergencyTeleport(ServerPlayerEntity player) {
@@ -26,6 +26,7 @@ public class TeleportService {
 
         pearlStack.decrement(1);
         player.teleportTo(respawnTarget);
+        player.sendMessage(Text.translatable("message.emergency_teleport.success"));
     }
 
     private static boolean isOnCooldown(ServerPlayerEntity player) {
